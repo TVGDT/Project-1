@@ -46,7 +46,7 @@ class Base(Building):
 
         self.period = period
         self.gene_time = period
-        self.gene_pos = (x0 + 20, y0 + 5)
+        self.gene_pos = (x0 + 20, y0 + 65)
 
     def update(self):
         self.gene_time -= 1
@@ -55,7 +55,7 @@ class Base(Building):
             self.generate_enemy()
 
     def generate_enemy(self):
-        enemy = character.Enemy((self.gene_pos))
+        enemy = character.Enemy(name = "enemy", position = (self.gene_pos))
     
         
 class Tour(Building):
