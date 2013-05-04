@@ -1,4 +1,4 @@
-# -*-coding:Latin-1 -*
+# -*- coding: utf-8 -*-
 
 import os, sys
 import pygame
@@ -14,7 +14,7 @@ def main():
 
     screen = pygame.display.set_mode((globals.NB_SQUARES_PER_ROW * globals.SQUARE_SIDE, globals.NB_SQUARES_PER_COL * globals.SQUARE_SIDE))
 
-    # Création du game context et des games states associés
+    # CrÃ©ation du game context et des games states associÃ©s
     gc = GameContext()
 
     clock = pygame.time.Clock()
@@ -22,7 +22,7 @@ def main():
         gc.handle_events()
         next_state = gc.update()
         gc.render(screen)
-        pygame.display.flip()       #a placer après le changement éventuel de gamestate
+        pygame.display.flip()       #a placer aprÃ¨s le changement Ã©ventuel de gamestate
 
         if not next_state == "keep":
             # quitter si la valeur de renvoi Ã©tait nulle

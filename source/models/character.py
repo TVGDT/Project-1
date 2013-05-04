@@ -1,4 +1,4 @@
-﻿# -*-coding:Latin-1 -*
+# -*- coding: utf-8 -*-
 
 import pygame as pg
 import globals
@@ -129,11 +129,11 @@ class Character(AnimatedSprite):
 #         ghost = Character(image_path = None, position = [self.position[0] + direction[0], self.position[1] + direction[1]], max_life=1, atk=1, max_speed=1)
 
 #         if len(pg.sprite.spritecollide(ghost, globals.obstacle, False))!=0:
-#             #return     probl?me : arr?te le personnage sur son image courante
+#             #return     problème : arrête le personnage sur son image courante
 
 #             collision = True
 
-#             #Affiche un personnage ? l'arr?t
+#             #Affiche un personnage à l'arrêt
 #             #self.cpt = 0
 
 
@@ -147,7 +147,7 @@ class Character(AnimatedSprite):
 #             new_x = self.position[0] + direction[0]
 #             new_y = self.position[1] + direction[1]
 
-#         #d?terminition quant la colonne du sprite ? afficher
+#         #déterminition quant la colonne du sprite à afficher
 #         t=self.cpt%40
 #         if t<10:
 #             self.j_image = 0
@@ -158,7 +158,7 @@ class Character(AnimatedSprite):
 #         else:
 #             self.j_image = 3
 
-#         #d?terminition de la ligne du sprite ? afficher
+#         #déterminition de la ligne du sprite à afficher
 #         if direction[1]>0:
 #             #self.image = self.images[0][0]
 #             self.i_image = 0
@@ -174,7 +174,7 @@ class Character(AnimatedSprite):
 #             self.i_image = 3
 
 
-#         #actualisation de la position et du sprite affich?
+#         #actualisation de la position et du sprite affiché
 #         self.position = [new_x, new_y]
 #         # print("moves to: ", self.position)
 # ##        print("image chargée : ", ind, frame)
@@ -187,7 +187,7 @@ class Character(AnimatedSprite):
 
     def get_next_move(self):
         """Renvoie la direction du mouvement sur cet update"""
-        print("? pr?ciser en classe concr?te !")
+        print("à préciser en classe concrète !")
 
     def reset_state(self):
 
@@ -229,18 +229,18 @@ class Hero(Character):
 
     def __init__(self, name, position, max_life = 100, atk = 10, max_speed = 2):
         Character.__init__(self, name, "charset1.png", position, max_life, atk, max_speed)
-        self.target = None # prochaine position o? le personnage doit se diriger (sur clic)
+        self.target = None # prochaine position où le personnage doit se diriger (sur clic)
 
     def update(self, adventure_state):
 
-        # d?placement continu sur un clic gauche prolong?
+        # déplacement continu sur un clic gauche prolongé
         if adventure_state.mouse_buttons['left']:
-            # v?rifier si la position recherch?e est "convenable"
+            # vérifier si la position recherchée est "convenable"
             self.target = adventure_state.mouse_buttons['left']
 
         if self.target is not None:
-            self._step_to(self.target) # ou move_to avec m?moire
-            # si le perso est assez proche de sa cible, arr?ter le mouvement
+            self._step_to(self.target) # ou move_to avec mémoire
+            # si le perso est assez proche de sa cible, arrêter le mouvement
             if vector.distance(self.position, self.target) < 5:
                 self.target = None
 

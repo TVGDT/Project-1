@@ -1,4 +1,4 @@
-# -*- coding: Latin-1 -*
+# -*- coding: utf-8 -*-
 
 from pygame import sprite, Rect # not sure it's good practice to import a module and a sub-module at the same time...
 from helper.loaders import load_image

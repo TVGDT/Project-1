@@ -1,4 +1,4 @@
-﻿# -*-coding:Latin-1 -*
+# -*- coding: utf-8 -*-
 import pygame
 import globals
 from helper.loaders import load_image
@@ -33,7 +33,7 @@ class GameContext:
         self.state.handle_events()
 
     def update(self):
-        """appel à la méthode du self.state courant; actualisation des composants affich?s ? l'?cran, d?termination et renvoi du gamestate suivant"""
+        """appel à la méthode du self.state courant; actualisation des composants affichés à l'écran, détermination et renvoi du gamestate suivant"""
         return self.state.update()
 
     def render(self, screen):
@@ -48,7 +48,7 @@ class GameState:
     """State dans le state design pattern"""
     def __init__(self):
         """initialise les variables propres au gamestate"""
-        # Ã  remplacer par des raise errors
+        # à remplacer par des raise errors
         print("cannot instanciate abstract class!")
 
     def on_enter(self):
@@ -58,7 +58,7 @@ class GameState:
         print("maybe we should put the common handling here!")
 
     def update(self):
-        """actualisation des composants affich?s ? l'?cran, d?termination et renvoi du gamestate suivant"""
+        """actualisation des composants affichés à l'écran, détermination et renvoi du gamestate suivant"""
         print("cannot update abstract gamestate!")
 
     def render(self, screen):
@@ -111,7 +111,7 @@ class OpeningState(GameState):
         # rect.center = screen.get_rect().center
         # screen.blit(self.fore, rect)
         # # blit text
-        # label = self.font.render("Il ?tait une fois...", True, (255,255,255), (0,0,0))
+        # label = self.font.render("Il était une fois...", True, (255,255,255), (0,0,0))
         # label_rect = label.get_rect()
         # label_rect.centerx = screen.get_rect().centerx
         # label_rect.y = 600
@@ -125,7 +125,7 @@ class MenuState(GameState):
         self.font = pygame.font.Font(None, 60)
 
     def on_enter(self):
-        # est-ce correct de crÃ©er cette variable (quand on entre pour la premiÃ¨re fois dans le menu) ici ?
+        # est-ce correct de créer cette variable (quand on entre pour la première fois dans le menu) ici ?
         self.keyPressed = {'up': False, 'down': False, 'left': False, 'right': False, 'start': False, 'exit': False}
 
     def handle_events(self):
@@ -160,30 +160,30 @@ class ActionState(GameState):
     """ConcreteStateB dans le state design pattern"""
     def __init__(self):
         pass
-        # les globals deviendront des variables liÃ©es au gamestate, sauf peut-Ãªtre les touches du clavier
+        # les globals deviendront des variables liées au gamestate, sauf peut-être les touches du clavier
         # on devrait charger les images ici si possibles
 
     def on_enter(self):
-        # crÃ©ation de la map
+        # création de la map
         globals.map = map.Map('map.txt')
 
-        # crÃ©ation du hero
-        globals.hero = character.Hero(name = "hÃ©ros", position = [50, 50])
+        # création du hero
+        globals.hero = character.Hero(name = "héros", position = [50, 50])
 
-        # crÃ©ation de la liste des ennemis
+        # création de la liste des ennemis
         globals.enemies = pygame.sprite.Group()
 
-        # crÃ©ation du dragon
+        # création du dragon
         globals.balles=pygame.sprite.Group()
 
         # creation des tours
         globals.towers=pygame.sprite.Group()
         globals.towers.add(building.Tour(15*32,5*32))
 
-        # crÃ©ation de la base
+        # création de la base
         globals.base = building.Base(9*32,4*32)
 
-        # key pressed (peut-Ãªtre Ã  initialiser dans le menu Ã©galement)
+        # key pressed (peut-être à initialiser dans le menu également)
         globals.keyPressed = {'up': False, 'down': False, 'left': False, 'right': False, 'debug shoot': False, 'menu': False}
 
         # mouse actions
@@ -193,10 +193,10 @@ class ActionState(GameState):
         for event in pygame.event.get():
             is_key_down = True if event.type == pygame.KEYDOWN else False
 
-            # on dÃ©tecte l'appui sur la touche de tir (fonction temporaire, les tirs seront g?n?r?s automatiquement par la suite)
+            # on détecte l'appui sur la touche de tir (fonction temporaire, les tirs seront générés automatiquement par la suite)
             globals.keyPressed['debug shoot'] = is_key_down and event.key == pygame.K_SPACE
 
-            # on dÃ©tecte les entrÃ©es et sorties de l'Ã©tat "appuyÃ©e" pour chaque touche directionnelle
+            # on détecte les entrées et sorties de l'état "appuyée" pour chaque touche directionnelle
             if is_key_down or event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
                     globals.keyPressed['up'] = is_key_down
@@ -207,16 +207,16 @@ class ActionState(GameState):
                 elif event.key == pygame.K_RIGHT:
                     globals.keyPressed['right'] = is_key_down
 
-            # on dÃ©tecte la touche de sortie
+            # on détecte la touche de sortie
             globals.keyPressed['menu'] = event.type == pygame.QUIT or is_key_down and event.key == pygame.K_ESCAPE
 
-            # dÃ©tection clics souris : entrÃ©e
+            # détection clics souris : entrée
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    self.mouse_buttons['left'] = event.pos # pas typÃ© mais bon
+                    self.mouse_buttons['left'] = event.pos # pas typé mais bon
                 elif event.button == 2:
                     self.mouse_buttons['right'] = event.pos
-            # dÃ©tection clics souris : sortie
+            # détection clics souris : sortie
             elif event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
                     self.mouse_buttons['left'] = False
