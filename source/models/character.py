@@ -1,4 +1,4 @@
-﻿# -*-coding:Latin-1 -*
+# -*- coding: utf-8 -*-
 
 import pygame as pg
 import globals
@@ -8,9 +8,9 @@ from animsprite import AnimatedSprite
 
 class Character(AnimatedSprite):
     """Personnage : sprite animé pouvant se déplacer"""
-    
+
     def __init__(self, name, spritesheet_name, position, max_life, atk, max_speed) :
-        
+
         animation_info_hash = {
             'down_idle': {'start': 0, 'end': 0, 'duration': 0},
             'down_walk': {'start': 0, 'end': 3, 'duration': 20},
@@ -38,7 +38,7 @@ class Character(AnimatedSprite):
 
 
     def update(self, adventure_state):
-        
+
         # peut-être déplacer plus de traitement du côté handle_event
         horizontal_move, vertical_move = self.get_next_move(adventure_state)
 
@@ -58,10 +58,10 @@ class Character(AnimatedSprite):
             self.aim = angle
             self.state = 1
             #Penser à modifier l'image du perso
-  
-  
-  
-        
+
+
+
+
 
     def get_env(self):
         """Récupère le "statut" des 9 cases entourant l'entité, renvoie un dict avec comme clés les coordonnées des cases.
@@ -76,27 +76,27 @@ class Character(AnimatedSprite):
     def collision(self, direction, env):
         """Détecte"""
         return pg.sprite.spritecollide
-   
-   
-   
-    
+
+
+
+
     def move(self, direction, collision = False):
         """Déplace l'entité d'une case dans la direction choisie(tableau de 2 entiers contenus dans {-1; 0; 1})
         si le test de collision renvoi False"""
 
         # a ghost character is created... is it worthy?
         ghost = Ghost(self.position[0] + direction[0], self.position[1] + direction[1])
-        
+
         # print(self.name + " va tester ghost")
 
         if len(pg.sprite.spritecollide(ghost, globals.obstacle, False))!=0:
             return
-        
+
         new_x = self.position[0] + direction[0]
         new_y = self.position[1] + direction[1]
 
         # print(self.name + " va tester direction")
-        
+
         if collision != True:
 
             if new_y > self.position[1]:
@@ -110,7 +110,7 @@ class Character(AnimatedSprite):
             else:
                 new_direction = '?'
             # note : le dernier cas est un else normalement
-                
+
             self.position = [new_x, new_y]
             self.rect.move_ip(direction[0], direction[1])
 
@@ -118,36 +118,36 @@ class Character(AnimatedSprite):
             if self.direction != new_direction or self.state == 0:
                 self.direction = new_direction
                 self.change_animation(self.direction + '_walk')
-                
+
                 self.state = 1 # on passe en walk
 
 # =======
 #     def move(self, direction):
-        
+
 #         collision = False
-        
+
 #         ghost = Character(image_path = None, position = [self.position[0] + direction[0], self.position[1] + direction[1]], max_life=1, atk=1, max_speed=1)
-        
+
 #         if len(pg.sprite.spritecollide(ghost, globals.obstacle, False))!=0:
-#             #return     probl?me : arr?te le personnage sur son image courante
-            
+#             #return     problème : arrête le personnage sur son image courante
+
 #             collision = True
-            
-#             #Affiche un personnage ? l'arr?t
-#             #self.cpt = 0 
-        
-        
-        
+
+#             #Affiche un personnage à l'arrêt
+#             #self.cpt = 0
+
+
+
 #         new_x = self.position[0]
 #         new_y = self.position[1]
-                
+
 #         if collision==False:
 #             """Déplace l'entité d'une case dans la direction choisie(tableau de 2 entiers contenus dans {-1; 0; 1})
 #             si le test de collision renvoi False"""
 #             new_x = self.position[0] + direction[0]
 #             new_y = self.position[1] + direction[1]
-            
-#         #d?terminition quant la colonne du sprite ? afficher
+
+#         #déterminition quant la colonne du sprite à afficher
 #         t=self.cpt%40
 #         if t<10:
 #             self.j_image = 0
@@ -158,11 +158,11 @@ class Character(AnimatedSprite):
 #         else:
 #             self.j_image = 3
 
-#         #d?terminition de la ligne du sprite ? afficher
+#         #déterminition de la ligne du sprite à afficher
 #         if direction[1]>0:
 #             #self.image = self.images[0][0]
 #             self.i_image = 0
-                
+
 #         elif direction[0]<0:
 #             #self.image = self.images[1][0]
 #             self.i_image = 1
@@ -172,9 +172,9 @@ class Character(AnimatedSprite):
 #         elif direction[1]<0:
 #             #self.image = self.images[3][0]
 #             self.i_image = 3
-        
-        
-#         #actualisation de la position et du sprite affich?        
+
+
+#         #actualisation de la position et du sprite affiché
 #         self.position = [new_x, new_y]
 #         # print("moves to: ", self.position)
 # ##        print("image chargée : ", ind, frame)
@@ -187,10 +187,10 @@ class Character(AnimatedSprite):
 
     def get_next_move(self):
         """Renvoie la direction du mouvement sur cet update"""
-        print("? pr?ciser en classe concr?te !")
+        print("à préciser en classe concrète !")
 
     def reset_state(self):
-                            
+
         if self.state != 0:
             self.state = 0
 
@@ -229,18 +229,18 @@ class Hero(Character):
 
     def __init__(self, name, position, max_life = 100, atk = 10, max_speed = 2):
         Character.__init__(self, name, "charset1.png", position, max_life, atk, max_speed)
-        self.target = None # prochaine position o? le personnage doit se diriger (sur clic)
+        self.target = None # prochaine position où le personnage doit se diriger (sur clic)
 
     def update(self, adventure_state):
-        
-        # d?placement continu sur un clic gauche prolong?
+
+        # déplacement continu sur un clic gauche prolongé
         if adventure_state.mouse_buttons['left']:
-            # v?rifier si la position recherch?e est "convenable"
+            # vérifier si la position recherchée est "convenable"
             self.target = adventure_state.mouse_buttons['left']
 
         if self.target is not None:
-            self._step_to(self.target) # ou move_to avec m?moire
-            # si le perso est assez proche de sa cible, arr?ter le mouvement
+            self._step_to(self.target) # ou move_to avec mémoire
+            # si le perso est assez proche de sa cible, arrêter le mouvement
             if vector.distance(self.position, self.target) < 5:
                 self.target = None
 
@@ -305,5 +305,3 @@ class Ghost(pg.sprite.Sprite):
        # Update the position of this object by setting the values of rect.x and rect.y
        self.rect = self.image.get_rect()
        self.rect.topleft = (x, y)
-
-    
